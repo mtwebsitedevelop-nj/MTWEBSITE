@@ -118,6 +118,7 @@ img,svg,video{max-width:100%}body{overflow-x:hidden;-webkit-text-size-adjust:100
 }
 @media(max-width:420px){.grid{grid-template-columns:1fr}.top .w a:nth-child(2){display:none}.chip{margin:3px}}
 @media(hover:none){a.svc:hover,a.sol:hover,.xc:hover{transform:none}.card:hover .ph.pm img{transform:none}}
+@media(hover:hover){.pimg{cursor:zoom-in}}.pimg img,.card .ph.pm img{transition:transform .12s ease-out!important;will-change:transform}
 .top,#nav,#sq,.mb,footer,#wa,#cb,#ck,.pb .w>a,.pb nav{display:none!important}#vw{display:inline-flex!important;align-items:center}
 </style>
 <meta name="robots" content="noindex,nofollow">
@@ -339,6 +340,10 @@ const wgu=()=>{$('#wg').href=waU($('#wm').value||'Hello, I would like to enquire
 if(!LOC&&!SBON)fetch('products.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(j&&Array.isArray(j.products)&&j.products.length){P=j.products;B={...B,...(j.brands||{})};render()}}).catch(()=>{});
 if(SBON){if(SES){admin=true;sbLeads()}fetch(SB_URL+'/rest/v1/site_data?select=key,value',{headers:{...SBH,...(SB_KEY.startsWith('eyJ')?{Authorization:'Bearer '+SB_KEY}:{})},cache:'no-store'}).then(r=>r.ok?r.json():[]).then(rows=>{const m={};rows.forEach(x=>m[x.key]=x.value);let ch=0;if(m.catalog&&Array.isArray(m.catalog.p)){P=m.catalog.p;B=m.catalog.b||{};Object.keys(BC0).forEach(k=>{if(!(k in B))B[k]=''});ch=1}if(m.chat){CH={...CH0,...m.chat};ch=1}if(m.logo){SITE=m.logo.v||'';ch=1}if(m.slides){SLI=Array.isArray(m.slides)?m.slides:[];ch=1}if(ch)render()}).catch(()=>{})}
 {const m=document.getElementById('mb');if(m)m.onclick=()=>{const n=document.getElementById('nav'),o=n.classList.toggle('open');m.setAttribute('aria-expanded',o)}}
+{const ZB='.pimg,.card .ph.pm',zb=e=>e.target.closest&&e.target.closest(ZB),zo=(b,e)=>{const r=b.getBoundingClientRect();return((e.clientX-r.left)/r.width*100)+'% '+((e.clientY-r.top)/r.height*100)+'%'};
+document.addEventListener('mousemove',e=>{if(!matchMedia('(hover:hover)').matches)return;const b=zb(e);if(!b)return;const im=b.querySelector('img');if(!im)return;im.style.transformOrigin=zo(b,e);im.style.transform='scale('+(b.classList.contains('pimg')?2.4:1.6)+')'});
+document.addEventListener('mouseout',e=>{const b=zb(e);if(b&&!b.contains(e.relatedTarget)){const im=b.querySelector('img');if(im)im.style.transform=''}});
+document.addEventListener('click',e=>{if(matchMedia('(hover:hover)').matches)return;const b=e.target.closest&&e.target.closest('.pimg');if(!b)return;const im=b.querySelector('img');if(!im)return;if(im.style.transform){im.style.transform=''}else{im.style.transformOrigin=zo(b,e);im.style.transform='scale(2.2)'}})}
 addEventListener('hashchange',render);if(CLEAN)addEventListener('popstate',render);render();
 </script>
 <script>
